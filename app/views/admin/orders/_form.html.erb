@@ -1,0 +1,35 @@
+<%= form_for([:admin, @order]) do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="form-group">
+    <%= f.label :mobile %>
+    <%= f.text_field :mobile %>
+  </div>
+
+
+  <div>
+    <%= f.nested_fields_for :order_items do |ff| %>
+      <%= ff.collection_select :product_id, Product.all, :id, :name %>
+      <%= ff.number_field :quantity %>
+      <%= ff.number_field :price %>
+      <%= ff.remove_nested_fields_link 'Remove' %>
+    <% end %>
+    <%= f.add_nested_fields_link :order_items %>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :paid %>
+    <%= f.check_box :paid %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

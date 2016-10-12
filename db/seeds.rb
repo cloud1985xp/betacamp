@@ -43,3 +43,19 @@ categories.each do |name, subs|
     end
   end
 end
+
+products = Product.all
+user = User.first
+5.times do ||
+  order = user.orders.build(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    mobile: Faker::PhoneNumber.cell_phone
+  )
+  rand(3..8).times do
+    product = products.sample
+    order.order_items.build(product: product, price: product.price, quantity: rand(1..5))
+  end
+  order.amount = order.order_items.map { |x| x.price * x.quantity }.sum
+  order.save!
+end
