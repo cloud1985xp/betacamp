@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root "home#index"
@@ -20,7 +25,9 @@ Rails.application.routes.draw do
     root 'index#index'
     resources :categories
     resources :users
-    resources :products
+    resources :products do
+      post 'export', on: :collection
+    end
     resources :orders, except: [:new, :create]
   end
 end
