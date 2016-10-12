@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :products, controller: 'category_products', only: :show
   end
 
+  resource :cart
+
   get '/about' => 'pages#about'
   get '/contact' => 'pages#contact'
 
