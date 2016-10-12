@@ -8,9 +8,36 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+  <body class="<%= "#{controller_name} #{action_name}"%>">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">BetaCamp</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><%= link_to '首頁', root_path %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to '登出', destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to '註冊', new_user_registration_path %></li>
+              <li><%= link_to '登入', new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= content_tag :div, notice, class: 'alert alert-info' if notice %>
+      <%= content_tag :div, alert, class: 'alert alert-error' if alert %>
+      <%= yield %>
+    </div>
   </body>
 </html>
