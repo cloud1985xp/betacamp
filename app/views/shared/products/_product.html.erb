@@ -1,0 +1,10 @@
+<div class='col-sm-3'>
+  <div class='media'>
+    <%= image_tag Faker::Placeholdit.image("240x160", "png", 'e6e6e6'), class: 'pull-left' %>
+    <div class='media-body'>
+      <h2 class='product-name'><%= link_to product.name, category_product_path(product.category, product) %></h2>
+      <div class='product-description'><%= product.description %></div>
+      <div class='product-price'><%= number_to_currency product.price %></div>
+    </div>
+  </div>
+</div>
