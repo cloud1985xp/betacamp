@@ -6,4 +6,5 @@ class Category < ApplicationRecord
   acts_as_list scope: :parent
 
   scope :enabled, ->{ where(enabled: true) }
+  scope :root, ->{ where(parent_id: nil) }
 end
