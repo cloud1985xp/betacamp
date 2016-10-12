@@ -1,0 +1,30 @@
+<h1>瀏覽訂單 <%= @order.id %></h1>
+<%= link_to "Back to Orders", admin_orders_path, class: 'btn btn-default' %>
+<%= link_to "Edit", edit_admin_order_path(@order), class: 'btn btn-success' %>
+<ul>
+  <li>姓名：<%= @order.name %></li>
+  <li>信箱<%= @order.email %></li>
+  <li>電話：<%= @order.mobile %></li>
+  <li>付款：<%= @order.paid? %></li>
+  <li>總金額：<%= number_to_currency @order.amount %></li>
+</ul>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>品名</th>
+      <th>數量</th>
+      <th>售價</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_items.each do |order_item| %>
+      <tr>
+        <td><%= order_item.product.name %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= number_to_currency order_item.price %></td>
+        <td><%= number_to_currency order_item.subtotal %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
