@@ -1,0 +1,6 @@
+<h1>瀏覽 Product</h1>
+<%= link_to "Back to Products", admin_products_path, class: 'btn btn-default' %>
+<%= link_to "Edit", edit_admin_product_path(@product), class: 'btn btn-success' %>
+<h2><%= @product.name %></h2>
+<p><%= @product.description %></p>
+<p>Price: <%= number_to_currency @product.price %></p>

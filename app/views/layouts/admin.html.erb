@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Betacamp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="<%= "#{controller_name} #{action_name}"%>">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">BetaCamp Admin</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><%= link_to '後台首頁', '/admin' %></li>
+            <li><%= link_to '用戶', admin_users_path %></li>
+            <li><%= link_to '分類', admin_categories_path %></li>
+            <li><%= link_to '產品', admin_products_path %></li>
+
+            <li><%= link_to '登出', destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to '回前台', root_path, method: :delete %></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= content_tag :div, notice, class: 'alert alert-info' if notice %>
+      <%= content_tag :div, alert, class: 'alert alert-error' if alert %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

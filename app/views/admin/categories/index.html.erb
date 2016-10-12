@@ -1,0 +1,28 @@
+<h1>Categories 管理</h1>
+
+<%= link_to 'create category', new_admin_category_path, class: 'btn btn-default' %>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>編號</th>
+      <th>名稱</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.id %></td>
+        <td><%= category.name %></td>
+        <td><%= link_to '瀏覽', admin_category_path(category) %></td>
+        <td><%= link_to '編輯', edit_admin_category_path(category) %></td>
+        <td><%= link_to '刪除', admin_category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @categories %>

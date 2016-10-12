@@ -9,4 +9,11 @@ Rails.application.routes.draw do
 
   get '/about' => 'pages#about'
   get '/contact' => 'pages#contact'
+
+  namespace :admin do
+    root 'index#index'
+    resources :categories
+    resources :users
+    resources :products
+  end
 end
