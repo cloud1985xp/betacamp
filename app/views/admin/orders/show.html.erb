@@ -28,3 +28,26 @@
     <% end %>
   </tbody>
 </table>
+
+<h2>訂單資料修改紀錄</h2>
+<% @order.change_records.each do |record| %>
+  <p>時間：<%= record.created_at %></p>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>欄位</th>
+        <th>原始值</th>
+        <th>修改為</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% record.values.each do |field, values| %>
+        <tr>
+          <td><%= field %></td>
+          <td><%= values[0] %></td>
+          <td><%= values[1] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
