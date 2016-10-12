@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   resources :categories, only: :show do
     resources :products, controller: 'category_products', only: :show do
       post 'add', on: :member
+      resources :comments, controller: 'product_comments', only: :create
     end
+    resources :comments, controller: 'category_comments', only: :create
   end
 
   resource :cart
