@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012163717) do
+ActiveRecord::Schema.define(version: 20161012171811) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "item_id",                null: false
@@ -36,7 +36,9 @@ ActiveRecord::Schema.define(version: 20161012163717) do
     t.boolean  "enabled",     default: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "parent_id"
     t.index ["enabled", "position"], name: "index_categories_on_enabled_and_position"
+    t.index ["parent_id", "position", "enabled"], name: "index_categories_on_parent_id_and_position_and_enabled"
   end
 
   create_table "order_items", force: :cascade do |t|
