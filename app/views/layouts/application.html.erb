@@ -6,6 +6,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield(:og) %>
   </head>
 
   <body class="<%= "#{controller_name} #{action_name}"%>">
@@ -42,5 +43,6 @@
       <%= content_tag :div, alert, class: 'alert alert-error' if alert %>
       <%= yield %>
     </div>
+    <%= yield(:javascript) %>
   </body>
 </html>
