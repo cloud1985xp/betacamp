@@ -4,8 +4,12 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :categories, only: :show do
-    resources :products, controller: 'category_products', only: :show
+    resources :products, controller: 'category_products', only: :show do
+      post 'add', on: :member
+    end
   end
+
+  resource :cart
 
   get '/about' => 'pages#about'
   get '/contact' => 'pages#contact'

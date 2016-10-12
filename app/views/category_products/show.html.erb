@@ -8,5 +8,8 @@
     <div class='product-description'><%= @product.description %></div>
     <div class='product-price'><%= number_to_currency @product.price %></div>
     <div class="product-content"><%= simple_format(@product.content) %></div>
+    <div>
+      <%= link_to '加到購物車', add_category_product_path(@product.category, @product), method: :post, class: 'btn btn-primary' %>
+    </div>
   </div>
 </div>
