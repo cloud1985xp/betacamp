@@ -1,0 +1,32 @@
+<h1>Products 管理</h1>
+
+<%= link_to 'create product', new_admin_product_path, class: 'btn btn-default' %>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>編號</th>
+      <th>名稱</th>
+      <th>分類</th>
+      <th>價格</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.category.name %></td>
+        <td><%= number_to_currency product.price %></td>
+        <td><%= link_to '瀏覽', admin_product_path(product) %></td>
+        <td><%= link_to '編輯', edit_admin_product_path(product) %></td>
+        <td><%= link_to '刪除', admin_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @products %>

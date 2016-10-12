@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-sm-6">
+    <%= image_tag Faker::Placeholdit.image("640x480", "png", 'e6e6e6'), class: 'pull-left img-responsive' %>
+  </div>
+  <div class="col-sm-6">
+    <h1><%= @product.name %></h1>
+    <p>Category: <%= link_to @product.category.name, category_path(@product.category) %></p>
+    <div class='product-description'><%= @product.description %></div>
+    <div class='product-price'><%= number_to_currency @product.price %></div>
+    <div class="product-content"><%= simple_format(@product.content) %></div>
+  </div>
+</div>

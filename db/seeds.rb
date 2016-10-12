@@ -6,6 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.create!(
+  email: 'admin@betacamp.co',
+  password: 'secretsecret',
+  password_confirmation: 'secretsecret',
+  admin: true
+)
+
 categories = %w(Books Clothes 3C Groceries Food )
 
 categories.each do |name|
