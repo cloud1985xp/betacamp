@@ -1,0 +1,35 @@
+<h1>Users 管理</h1>
+
+<%= link_to 'create user', new_admin_user_path, class: 'btn btn-default' %>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>編號</th>
+      <th>信箱</th>
+      <th>管理者</th>
+      <th>最近登入</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin? %></td>
+        <td>
+          <%= user.current_sign_in_at %>
+          <%= user.current_sign_in_ip %>
+        </td>
+        <td><%= link_to '瀏覽', admin_user_path(user) %></td>
+        <td><%= link_to '編輯', edit_admin_user_path(user) %></td>
+        <td><%= link_to '刪除', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @users %>

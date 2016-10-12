@@ -1,0 +1,6 @@
+<h1>瀏覽 User</h1>
+<%= link_to "Back to Users", admin_users_path, class: 'btn btn-default' %>
+<%= link_to "Edit", edit_admin_user_path(@user), class: 'btn btn-success' %>
+<h2><%= @user.name %></h2>
+<p><%= @user.description %></p>
+<p>Price: <%= number_to_currency @user.price %></p>
