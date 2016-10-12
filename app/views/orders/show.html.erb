@@ -1,0 +1,18 @@
+<h1>瀏覽我的訂單 <%= @order.id %></h1>
+
+
+<% if @order.paid? %>
+  <p>已付款完成</p>
+  <textarea>
+    <%= @order.payments.last.params %>
+  </textarea>
+<% else %>
+  <h3>選擇結帳方式</h3>
+  <% Payment::PAYMENT_METHODS.each do |name| %>
+
+
+  <%= link_to t(name, scope: 'payment.pay2go'), checkout_order_path(@order, payment_method: name), class: 'btn btn-default', method: :post %>
+
+  <% end %>
+
+<% end %>

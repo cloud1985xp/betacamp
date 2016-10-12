@@ -1,0 +1,43 @@
+<h1>結帳</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>商品</th>
+      <th>數量</th>
+      <th>單價</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_cart.cart_items.each do |cart_item| %>
+      <tr>
+        <td><%= cart_item.name %></td>
+        <td><%= cart_item.quantity %></td>
+        <td><%= number_to_currency cart_item.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>合計</th>
+      <th></th>
+      <th><%= number_to_currency current_cart.total %></th>
+    </tr>
+  </tfoot>
+</table>
+
+<%= form_for @order, html: { class: 'form' }  do |f| %>
+
+  <%= f.object.errors.full_messages.to_sentence if f.object.errors.any? %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+
+  <%= f.label :mobile %>
+  <%= f.text_field :mobile, class: 'form-control' %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email, class: 'form-control' %>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
+<% end %>

@@ -14,6 +14,20 @@ class Order < ApplicationRecord
     self.save!
   end
 
+  def add_items(cart)
+    self.transaction do
+      self.amount ||= 0
+      cart.cart_items.each do |cart_item|
+        oi = order_items.build(
+          product: cart_item.item,
+          quantity: cart_item.quantity,
+          price: cart_item.price
+        )
+        self.amount += oi.subtotal
+      end
+    end
+  end
+
   private
 
   def record_changes

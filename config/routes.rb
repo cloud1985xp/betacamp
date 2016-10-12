@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   resource :cart
+  resources :orders, only: [:index, :new, :create, :show]
 
   get '/about' => 'pages#about'
   get '/contact' => 'pages#contact'
