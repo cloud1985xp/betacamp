@@ -1,0 +1,8 @@
+<h1>轉址前往信用卡付款頁面，請勿關閉或離開頁面...</h1>
+<form action="<%= Pay2go.url %>" method="post">
+  <% @payment.pay2go_params.each do |key, value| %>
+   <%= hidden_field_tag key, value %>
+  <% end %>
+  <input type="submit" style="visibility:hidden;">
+</form>
+<script>document.forms[0].submit()</script>
