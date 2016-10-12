@@ -12,4 +12,8 @@ class Cart < ApplicationRecord
     cart_item.increment(:quantity)
     save && cart_item.save
   end
+
+  def total
+    cart_items.sum(&:subtotal)
+  end
 end
