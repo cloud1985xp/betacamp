@@ -1,6 +1,6 @@
 <h1>瀏覽訂單 <%= @order.id %></h1>
 <%= link_to "Back to Orders", admin_orders_path, class: 'btn btn-default' %>
-<%= link_to "Edit", edit_admin_order_path(@order), class: 'btn btn-success' %>
+<%= link_to "Edit", edit_admin_order_path(@order), class: 'btn btn-success', data: { no_turbolink: true } %>
 <ul>
   <li>姓名：<%= @order.name %></li>
   <li>信箱<%= @order.email %></li>

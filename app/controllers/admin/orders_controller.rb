@@ -14,6 +14,7 @@ class Admin::OrdersController < Admin::BaseController
   def update
     @order = Order.find(params[:id])
     if @order.update_attributes(order_params)
+      @order.calculate_amount
       redirect_to admin_order_path(@order), notice: 'Updated Successfully.'
     else
       render :edit
@@ -23,6 +24,9 @@ class Admin::OrdersController < Admin::BaseController
   private
 
   def order_params
-    params.require(:order).permit(:name, :email, :mobile, :paid)
+    params.require(:order).permit(
+      :name, :email, :mobile, :paid,
+      order_items_attributes: [:quantity, :product_id, :price, :_destroy, :id]
+    )
   end
 end
