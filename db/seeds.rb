@@ -26,7 +26,8 @@ categories.each do |name|
       description: Faker::Lorem.sentences(rand(3..5)).join,
       content: Faker::Lorem.paragraphs(rand(5..8)).join("\n"),
       price: Faker::Commerce.price * 30,
-      active: true
+      active: true,
+      shelved_on: Date.current
     )
   end
 end

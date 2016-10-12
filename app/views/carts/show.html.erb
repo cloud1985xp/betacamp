@@ -1,0 +1,33 @@
+<h1>我的購物車</h1>
+
+
+<% if @cart.empty? %>
+  <div class='alert alert-info'>購物車是空的哦</div>
+<% else %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>商品</th>
+        <th>定價</th>
+        <th>數量</th>
+        <th>小計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart.cart_items.each do |cart_item| %>
+        <tr>
+          <td><%= cart_item.item.name %></td>
+          <td><%= number_to_currency cart_item.item.price %></td>
+          <td><%= cart_item.quantity %></td>
+          <td><%= number_to_currency cart_item.subtotal %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="3">總計</th>
+        <th><%= number_to_currency @cart.total %></th>
+      </tr>
+    </tfoot>
+  </table>
+<% end %>
