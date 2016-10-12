@@ -17,6 +17,12 @@ Rails.application.routes.draw do
   end
 
   resource :cart
+  resources :orders, only: [:index, :new, :create, :show] do
+    post :checkout, on: :member
+  end
+
+  post 'pay2go/return' => 'pay2go#callback'
+  post 'pay2go/notify' => 'pay2go#notify'
 
   get '/about' => 'pages#about'
   get '/contact' => 'pages#contact'

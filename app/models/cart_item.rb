@@ -6,6 +6,8 @@ class CartItem < ApplicationRecord
   # 2. 關聯的 foreign_key 會用 'item_id' -> (o) ok! 資料表裡的欄位的確是這樣命名
   # 所有的部分，因為並沒有這樣的 class，所以這裡要傳入 class_name 來指定它正確的名稱(Product)
 
+  delegate :name, :price, to: :item
+
   def subtotal
     quantity * item.price
   end

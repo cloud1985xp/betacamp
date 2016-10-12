@@ -1,0 +1,32 @@
+<h1>我的訂單</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>編號</th>
+      <th>訂購人</th>
+      <th>信箱</th>
+      <th>電話</th>
+      <th>金額</th>
+      <th>已付款</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.name %></td>
+        <td><%= order.email %></td>
+        <td><%= order.mobile %></td>
+        <td><%= number_to_currency order.amount %></td>
+        <td><%= order.paid? %></td>
+        <td><%= link_to '瀏覽', order_path(order) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @orders %>
