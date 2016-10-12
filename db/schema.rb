@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012173041) do
+ActiveRecord::Schema.define(version: 20161012175641) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "item_id",                null: false
@@ -40,6 +40,29 @@ ActiveRecord::Schema.define(version: 20161012173041) do
     t.integer  "products_count", default: 0
     t.index ["enabled", "position"], name: "index_categories_on_enabled_and_position"
     t.index ["parent_id", "position", "enabled"], name: "index_categories_on_parent_id_and_position_and_enabled"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id",   null: false
+    t.integer  "product_id", null: false
+    t.integer  "quantity",   null: false
+    t.integer  "price",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",                    null: false
+    t.integer  "amount",                     null: false
+    t.string   "email",                      null: false
+    t.string   "name"
+    t.string   "mobile"
+    t.boolean  "paid",       default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "order_items", force: :cascade do |t|

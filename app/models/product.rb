@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   # 但因為我故意在 CartItem 上用 item_id 當名稱，所以這裡也要指明我要的 foreign_key 名稱
 
   has_many :carts, through: :cart_items
+  has_many :order_items, dependent: :destroy
   validates_presence_of :name, :price
 
   scope :active, ->{ where(active: true).where('shelved_on <= ?', Date.current) }
