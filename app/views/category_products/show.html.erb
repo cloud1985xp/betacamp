@@ -23,3 +23,14 @@
     <%= render 'shared/comments/list', comments: @product.comments %>
   </div>
 </div>
+
+<% content_for(:og) do %>
+  <meta property="og:locale" content="zh_TW"/>
+  <meta property="og:site_name" content="BetaCamp"/>
+  <meta property="og:title" content="<%= @product.name %>"/>
+  <meta property="og:url" content="<%= category_product_url(@product.category, @product) %>"/>
+  <meta property="og:type" content="product"/>
+  <meta property="og:updated_time" content="<%= @product.updated_at %>" />
+  <meta property="og:description" content="<%= @product.description %>"/>
+  <meta property="og:image" content=""/>
+<% end %>
