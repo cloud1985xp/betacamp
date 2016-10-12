@@ -3,6 +3,9 @@ class CategoryProductsController < ApplicationController
 
   def show
     @product = @category.products.where(active: true).find(params[:id])
+    viewed_at = cookies["view-product-#{@product.id}"].to_i
+    @viewed = viewed_at > @product.updated_at.to_i
+    cookies["view-product-#{@product.id}"] = Time.now.to_i unless @viewed
   end
 
   private
