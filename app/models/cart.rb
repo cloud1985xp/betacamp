@@ -6,4 +6,10 @@ class Cart < ApplicationRecord
   def empty?
     cart_items.empty?
   end
+
+  def add_item(product)
+    cart_item = cart_items.where(item: product).first_or_initialize
+    cart_item.increment(:quantity)
+    save && cart_item.save
+  end
 end
