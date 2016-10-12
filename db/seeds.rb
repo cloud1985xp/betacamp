@@ -13,6 +13,31 @@ User.create!(
   admin: true
 )
 
+providers = 5.times.map do
+  ForeignProvider.create(
+    name: Faker::Company.name,
+    country: Faker::Address.country,
+    state: Faker::Address.state_abbr,
+    city: Faker::Address.city,
+    street: Faker::Address.street_address,
+    zip_code: Faker::Address.zip_code,
+    telephone: Faker::PhoneNumber.phone_number
+  )
+end
+
+I18n.with_locale(:'zh-TW') do
+  5.times do
+    providers << LocalProvider.create(
+      name: Faker::Company.name,
+      country: Faker::Address.country,
+      city: Faker::Address.city,
+      street: Faker::Address.street_address,
+      zip_code: Faker::Address.zip_code,
+      telephone: Faker::PhoneNumber.phone_number
+    )
+  end
+end
+
 categories = {
   'Books' => ['Programming', 'Comics', 'Novel', 'Literature'],
   'Clothes' => ['Hat', 'Pants', 'Coat', 'Jacket', 'Shoes'],
@@ -38,7 +63,8 @@ categories.each do |name, subs|
         content: Faker::Lorem.paragraphs(rand(5..8)).join("\n"),
         price: Faker::Commerce.price * 30,
         active: true,
-        shelved_on: Date.current
+        shelved_on: Date.current,
+        provider: providers.sample
       )
     end
   end

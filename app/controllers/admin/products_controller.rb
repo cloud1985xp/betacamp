@@ -1,6 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
   def index
-    @products = Product.includes(:category).page(params[:page])
+    @products = Product.includes(:category, :provider).page(params[:page])
   end
 
   def new
@@ -44,7 +44,7 @@ class Admin::ProductsController < Admin::BaseController
   def product_params
     params.require(:product).permit(
       :name, :description, :content,
-      :active, :price, :category_id
+      :active, :price, :category_id, :provider_id
     )
   end
 end
