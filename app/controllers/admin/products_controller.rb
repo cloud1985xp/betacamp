@@ -39,6 +39,11 @@ class Admin::ProductsController < Admin::BaseController
     redirect_to admin_products_path, notice: 'Product was deleted successfully'
   end
 
+  def export
+    ExportProductJob.perform_later(current_user.email)
+    redirect_to :back, notice: 'Export job had been started, please wait a moment.'
+  end
+
   private
 
   def product_params
