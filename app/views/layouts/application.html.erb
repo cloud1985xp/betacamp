@@ -43,5 +43,6 @@
       <%= content_tag :div, alert, class: 'alert alert-error' if alert %>
       <%= yield %>
     </div>
+    <%= yield(:javascript) %>
   </body>
 </html>
