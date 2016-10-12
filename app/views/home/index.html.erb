@@ -3,7 +3,14 @@
   <div class='col-sm-2'>
     <ul class='nav nav-stacked'>
       <% @categories.each do |category| %>
-        <li><%= link_to category.name, category_path(category) %></li>
+        <li>
+          <%= link_to_if (category.products_count > 0), category.name, category_path(category) %>
+          <ul>
+            <% category.children.each do |child| %>
+              <li><%= link_to child.name, category_path(child) %></li>
+            <% end %>
+          </ul>
+        </li>
       <% end %>
     </ul>
   </div>
