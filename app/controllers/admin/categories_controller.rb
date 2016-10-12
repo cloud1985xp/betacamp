@@ -1,7 +1,4 @@
-class Admin::CategoriesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authenticate_admin!
-
+class Admin::CategoriesController < Admin::BaseController
   def index
     @categories = Category.page(params[:page])
   end
@@ -46,9 +43,5 @@ class Admin::CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name, :description, :enabled)
-  end
-
-  def authenticate_admin!
-    redirect_to root_path, notice: 'you are not admin' unless current_user.admin?
   end
 end
