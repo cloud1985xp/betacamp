@@ -1,4 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
+  before_action :find_product, only: %i(show edit update destroy)
+
   def index
     @products = Product.page(params[:page])
   end
@@ -17,15 +19,12 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update_attributes(product_params)
       redirect_to admin_products_path, notice: 'Updated Successfully.'
     else
@@ -34,12 +33,15 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
     redirect_to admin_products_path, notice: 'Product was deleted successfully'
   end
 
   private
+
+  def find_product
+    @product = Product.find(params[:id].to_i)
+  end
 
   def product_params
     params.require(:product).permit(
