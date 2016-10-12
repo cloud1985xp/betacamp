@@ -1,6 +1,7 @@
 <h1>Products 管理</h1>
 
 <%= link_to 'create product', new_admin_product_path, class: 'btn btn-default' %>
+<%= link_to 'Export Products', export_admin_products_path, method: :post, class: 'btn btn-default' %>
 
 <table class='table'>
   <thead>
