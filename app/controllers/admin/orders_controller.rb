@@ -5,6 +5,7 @@ class Admin::OrdersController < Admin::BaseController
 
   def show
     @order = Order.find(params[:id])
+    @order_items = @order.order_items.includes(:product)
   end
 
   def edit

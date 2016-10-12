@@ -1,6 +1,6 @@
 class Admin::ProductsController < Admin::BaseController
   def index
-    @products = Product.page(params[:page])
+    @products = Product.includes(:category).page(params[:page])
   end
 
   def new
