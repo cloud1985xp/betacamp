@@ -114,6 +114,10 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.1)
     multi_json (1.12.1)
+    nested_form_fields (0.7.4)
+      coffee-rails (>= 3.2.1)
+      jquery-rails
+      rails (>= 3.2.0)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
@@ -221,6 +225,7 @@ DEPENDENCIES
   kaminari!
   kaminari-bootstrap (~> 3.0.1)
   listen (~> 3.0.5)
+  nested_form_fields
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   ransack
