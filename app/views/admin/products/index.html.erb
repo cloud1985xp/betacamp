@@ -8,6 +8,7 @@
       <th>編號</th>
       <th>名稱</th>
       <th>分類</th>
+      <th>供應商</th>
       <th>價格</th>
       <th></th>
       <th></th>
@@ -20,6 +21,11 @@
         <td><%= product.id %></td>
         <td><%= product.name %></td>
         <td><%= product.category.name %></td>
+        <td>
+          <%= product.provider.name %>
+          <br />
+          <%= product.provider.full_address %>
+        </td>
         <td><%= number_to_currency product.price %></td>
         <td><%= link_to '瀏覽', admin_product_path(product) %></td>
         <td><%= link_to '編輯', edit_admin_product_path(product) %></td>
