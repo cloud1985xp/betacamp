@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'devise'
-gem 'kaminari'
+gem 'kaminari', github: "amatsuda/kaminari"
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'faker'
 gem 'acts_as_list'
