@@ -4,6 +4,8 @@ class Category < ApplicationRecord
   belongs_to :parent, class_name: 'Category'
   has_many :comments, as: :commentable
   validates_presence_of :name
+
+  # 使用 acts_as_list 這個 gem，若沒裝記得去改 gemfile
   acts_as_list scope: :parent
 
   scope :enabled, ->{ where(enabled: true) }
