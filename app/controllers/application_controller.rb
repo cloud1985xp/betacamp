@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   unless Rails.application.config.consider_all_requests_local
     rescue_from ActionController::RoutingError, with: :not_found
     rescue_from ActionController::UnknownController, with: :not_found
-    rescue_from ActionController::UnknownAction, with: :not_found
+    rescue_from AbstractController::ActionNotFound, with: :not_found
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
     # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   end
