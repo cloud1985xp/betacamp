@@ -29,3 +29,16 @@
     min-height: 8em;
   }
 }
+
+.table {
+  tr.highlight td {
+    background-color: #99aaff;
+  }
+}
+
+.jt .table.hovered tbody tr {
+  display: none;
+  &.highlight {
+    display: table-row;
+  }
+}

@@ -1,0 +1,27 @@
+<% if records.size > 0 %>
+  <p><%= records.to_sql %></p>
+  <% keys = records[0].attributes.except('created_at', 'updated_at').keys %>
+  <table class='table table-striped'>
+    <thead>
+      <tr>
+        <th>#</th>
+        <% keys.each do |name| %>
+          <th><%= name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% records.each_with_index do |record, i| %>
+        <tr data-<%= record.class.name.downcase %>="<%= record.id %>" <%= "data-student=#{record.student_id}" if record.respond_to?(:student_id) %> <%= "data-course=#{record.course_id}" if record.respond_to?(:course_id) %>>
+          <td><%= i.succ %></td>
+          <% keys.each do |key| %>
+            <td><%= record[key] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+
+<% end %>
+<hr />
