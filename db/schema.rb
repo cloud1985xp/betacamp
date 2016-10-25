@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012201912) do
+ActiveRecord::Schema.define(version: 20161025143420) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer  "item_id",                null: false
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 20161012201912) do
     t.datetime "updated_at",       null: false
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "subject",    null: false
+    t.integer  "level",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_change_records", force: :cascade do |t|
@@ -125,6 +132,29 @@ ActiveRecord::Schema.define(version: 20161012201912) do
     t.string   "zip_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "student_grades", force: :cascade do |t|
+    t.integer  "student_id", null: false
+    t.integer  "course_id",  null: false
+    t.string   "grade"
+    t.integer  "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id", "grade"], name: "index_student_grades_on_course_id_and_grade"
+    t.index ["course_id"], name: "index_student_grades_on_course_id"
+    t.index ["student_id", "grade"], name: "index_student_grades_on_student_id_and_grade"
+    t.index ["student_id"], name: "index_student_grades_on_student_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.integer  "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["age"], name: "index_students_on_age"
+    t.index ["gender"], name: "index_students_on_gender"
   end
 
   create_table "users", force: :cascade do |t|
