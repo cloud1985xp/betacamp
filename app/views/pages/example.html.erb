@@ -1,0 +1,112 @@
+<h1>ActiveRecord #inclues vs #joins</h1>
+<div class='row'>
+  <div class='col-sm-4 et' data-toggle="1">
+    <h2>Student</h2>
+    <%= render 'example', records: @students %>
+  </div>
+  <div class='col-sm-4 jt'>
+    <h2>StudentGrade</h2>
+    <%= render 'example', records: StudentGrade.all %>
+  </div>
+  <div class='col-sm-4 et' data-toggle="1">
+    <h2>Course</h2>
+    <%= render 'example', records: @courses %>
+  </div>
+</div>
+
+<h2>Student Inner Join Grades</h2>
+<p>AR #join 預設是 INNER JOIN</p>
+<div class='row'>
+  <div class='col-sm-6'>
+    <h3>Only students.* selected</h3>
+    <textarea class='form-control'>Student.joins(:grades)</textarea>
+    <%= render 'example', records: @sjg %>
+  </div>
+  <div class='col-sm-6'>
+    <h3>students.*, student_grades.* selected</h3>
+    <textarea class='form-control'>Student.select('students.*, student_grades.*').joins(:grades)</textarea>
+    <%= render 'example', records: @sjg2 %>
+  </div>
+</div>
+
+<h3>OUTER JOIN(LEFT JOIN)</h3>
+<div class='row'>
+  <div class='col-sm-6'>
+    <h3>LEFT JOIN</h3>
+    <textarea class='form-control'>Student.select('students.*, student_grades.*').joins("LEFT JOIN student_grades ON students.id = student_grades.student_id")</textarea>
+    <%= render 'example', records: @ljd %>
+  </div>
+  <div class='col-sm-6'>
+    <h3>LEFT JOIN with WHERE condition</h3>
+    <textarea class='form-control'>Student.select('students.*, student_grades.*').joins("LEFT JOIN student_grades ON students.id = student_grades.student_id").where('score > 75')</textarea>
+    <%= render 'example', records: @ljd2 %>
+  </div>
+</div>
+<ul>
+  <li>不會 select joined table 的欄位
+    (必須自己加 select)
+  </li>
+  <li>從 join 後的「集合」再用 where 篩選</li>
+  <li>最後 select 出所要的欄位</li>
+</ul>
+<blockquote>什麼情形下會需要用 join？ => 當條件是跨 table 的時候！</blockquote>
+
+<h1>跨 Table 條件</h1>
+<h2>用#joins</h2>
+<textarea class='form-control'>Student.joins(:grades).where('student_grades.grade = ?', '<%= @grade_condition_value %>')</textarea>
+<%= render 'example', records: @cjd %>
+<ul>
+  <li>從 join 後的「集合」再用 where 篩選</li>
+  <li>最後 select 出所要的欄位</li>
+</ul>
+<h2>用 #includes 搭配 where conditions</h2>
+<textarea class='form-control'>Student.includes(:grades).where(student_grades: { grade: '<%= @grade_condition_value %>' })</textarea>
+<div class='alert alert-info'>
+  includes 搭配 where (cross table)時就不能用字串的方式下查詢條件（AR 會不知道要採用 join 的策略）
+  <br />取而代之的，必須用「巢狀」 hash 的方式下 where 條件（注意 key 是 table name）。
+</div>
+<%= render 'example', records: @data %>
+
+<h1>跨 Table 條件 - Many to Many</h1>
+<div class='row'>
+  <div class='col-sm-6'>
+    <h2>用#joins</h2>
+    <textarea class='form-control'>Student.joins(:courses).where('courses.level = ?', <%= @level_condition_value %>)</textarea>
+    <%= render 'example', records: @m2m1 %>
+  </div>
+  <div class='col-sm-6'>
+    <h2>用 #includes</h2>
+    <textarea class='form-control'>Student.includes(:courses).where(courses: { level: <%= @level_condition_value %> })</textarea>
+    <%= render 'example', records: @m2m2 %>
+  </div>
+</div>
+
+<h2>Record Set vs Object</h2>
+<p>#joins 即是執行 database 的行為，對資料表 join 後的資料集合(DataSet)做操作</p>
+<p>#includes 是 AR 額外提供的方法，它一樣會做 join 的查詢，但自動將查詢的結果(DataSet)轉為物件(Object)層級與其關聯(Association)
+<ul>
+  <li>結果為不重複物件 (students)</li>
+  <li>join 後重複的資料集，其實意即為它的 association student.courses</li>
+</ul>
+<p>這樣的結果才符合我們想要查詢語意，回來看看我們下的查詢</p>
+<div class='alert alert-info'>
+  <strong>Student</strong>.includes(:grades).where(student_grades: { grade: '<%= @grade_condition_value %>' })
+</div>
+<p>查出有修過 level 3 課程的「學生」，所以我們會希望出來的是學生的物件，而不是(有可能重複)的學生資料集</p>
+<p>所以：</p>
+<blockquote>ActiveRecord 負責為我們將資料集合 mapping 到物件導向 model/instance 的概念</blockquote>
+<p>還是回應到 ORM 阿！</p>
+
+<h2>結論：能用 includes 就是用 includes</h2>
+
+<h3>那什麼時候不能用 includes 呢？？ XD</h3>
+
+<p>你會發現在利用 hash 做跨表格條件時，只能做到「=」的條件式阿（我也不知道為何會這樣設計...若有找到解法請救我）
+<br />所以當你要做 「<」、「>」的條件時，就....看來還是得用 join 了 XDDD</p>
+<p>但這樣就有可能取到「Student 重複」的資料集合..<br />
+這時你就需要搭配跟一個功能：「DISTINCT」，只取出不同的資料
+</p>
+
+
+<textarea class='form-control'>Student.joins(:grades).where('student_grades.score > ?', <%= @score_condition_value %>).distinct</textarea>
+<%= render 'example', records: @dist %>

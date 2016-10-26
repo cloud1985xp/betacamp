@@ -57,14 +57,14 @@ https://github.com/cloud1985xp/betacamp/commit/da39af7e099ce92ba4e4c73afbabdc6a7
 
 ### Use rescue_from
 
-當發生像是 Routing Error(使用者連向錯誤的網址) 或 ActiveRecord::RecordNotFound (資料庫裡找不到對應資料時)  
+當發生像是 Routing Error(使用者連向錯誤的網址) 或 ActiveRecord::RecordNotFound (資料庫裡找不到對應資料時)
 我們可以在 Controller 層直接攔截住這類的錯誤，並將畫面顯示為 404
 
 https://github.com/cloud1985xp/betacamp/commit/a191322a7780162a3e70c4ef9c2ca159a1508ff9
 
 ### Use Cookies
 
-這個範例簡單利用 cookies 紀錄使用者瀏覽某產品的時間，  
+這個範例簡單利用 cookies 紀錄使用者瀏覽某產品的時間，
 藉此比對該產品最近更新的時間，以判斷畫面上要顯示 「已看過(viewed)」或是「新的(new)」
 
 https://github.com/cloud1985xp/betacamp/compare/feature/day1...feature/day1-cookie-example?expand=1
@@ -90,7 +90,7 @@ https://github.com/cloud1985xp/betacamp/compare/feature/day1...feature/day1-frie
 
 https://github.com/cloud1985xp/betacamp/compare/feature/day1-rescue-from...feature/day2-query-scope?expand=1
 
-當之後又要修改「販售中商品」的定義時，只要修改 scope 即可  
+當之後又要修改「販售中商品」的定義時，只要修改 scope 即可
 例如修改成「販售中」不僅要 active: true 還要另加一個「上架日期」(shelved_on) 來做為條件
 
 https://github.com/cloud1985xp/betacamp/compare/feature/day2-query-scope...feature/day2-product-shelved-on?expand=1
@@ -113,16 +113,16 @@ https://github.com/cloud1985xp/betacamp/commit/1050bf2d69afb87cb5de5371f12f53da8
 
 ### Counter Cache
 
-示範用 counter cache 做到紀錄各個分類下有多少的商品  
+示範用 counter cache 做到紀錄各個分類下有多少的商品
 順更簡單利用這個 counter 的值來判斷選單是否可以被點擊（若分類下沒有商品就不用產生連結）
 
 https://github.com/cloud1985xp/betacamp/commit/76228342af5d5366b9a786ad979e9eccf19d94ca
 
 ### Nested Fields: Edit Order
 
-加上訂單 model，也是 many to many 的關聯  
-並利用 nested_form_fields [https://github.com/ncri/nested_form_fields] 這個 gem 來實作後台的訂單編輯  
-因為編輯 nested fields 若要可以動態增加/刪除子欄位 (order items)，需要搭配 javascript 來控制表單的 DOM  
+加上訂單 model，也是 many to many 的關聯
+並利用 nested_form_fields [https://github.com/ncri/nested_form_fields] 這個 gem 來實作後台的訂單編輯
+因為編輯 nested fields 若要可以動態增加/刪除子欄位 (order items)，需要搭配 javascript 來控制表單的 DOM
 這裡 nested_form_fields 可以幫助我們輕鬆完成
 
 https://github.com/cloud1985xp/betacamp/commit/19192064eec6f1fca513f94e3a3f2342c01b9f10
@@ -142,7 +142,7 @@ https://github.com/cloud1985xp/betacamp/commit/e053c935943e671b5e0161acc0cd6a051
 
 ### STI
 
-這個例子是為 Product 加上供應商（Provider），但又需區分「本地供應商」(LocalProvider) 與「國外供應商」(ForeignProvider)  
+這個例子是為 Product 加上供應商（Provider），但又需區分「本地供應商」(LocalProvider) 與「國外供應商」(ForeignProvider)
 於是就利用 STI 設計了父類別 - Provider 與兩個子類別 LocalProvider & ForeignProvider，共用單一張資料表來完成繼承設計
 
 https://github.com/cloud1985xp/betacamp/commit/f6203e249c41deba0f16aeaef187b8515de6df6c
@@ -187,8 +187,19 @@ bundle exec sidekiq
 
 ## Payment
 
-完成購物網站的結帳功能，串 pay2go 的金流服務  
+完成購物網站的結帳功能，串 pay2go 的金流服務
 記得先去申請 sandbox 帳號
 
 https://github.com/cloud1985xp/betacamp/commit/14d086f56242b822fd7855b64b9378f8013b610b
 
+
+## joins vs includes on cross table condition
+
+進一步介紹 AR 在 joins 與 includes 的行為，尤其是跨 table 條件的時候
+
+```
+rake db:reset
+rake example:data
+```
+
+visit http://localhost:3000/example
